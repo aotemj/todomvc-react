@@ -28,7 +28,7 @@ class ListItem extends Component {
     }
     // 关闭编辑
     closeEdit(){
-        console.log('blur');
+        // console.log('blur');
     }
     render(){
         return (
