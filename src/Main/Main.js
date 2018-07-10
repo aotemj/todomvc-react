@@ -1,4 +1,4 @@
-import React, {Component} from "react";
+import React, {Component,PropTypes} from "react";
 import TodoItem from "../TodoItem/TodoItem"
 
 class Main extends Component {
@@ -27,5 +27,7 @@ class Main extends Component {
         )
     }
 }
-
+// Main.propTypes={
+    // editing:React.PropTypes.string
+// }
 export default Main
