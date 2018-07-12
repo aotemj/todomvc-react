@@ -1,11 +1,21 @@
 import React, {Component} from 'react';
+import PubSub from 'pubsub-js';
 import TodoItem from '../TodoItem/TodoItem';
 
 class Main extends Component {
+  // toggleSelectedAll() {
+  //   PubSub.publish('toggleSelectAll');
+  // }
+
   render() {
     return (
       <section className="main">
-        <input id="toggle-all" className="toggle-all" type="checkbox"/>
+        <input
+          id="toggle-all"
+          className="toggle-all"
+          type="checkbox"
+          onClick={this.props.toggleSelectedAll}
+        />
         <label htmlFor="toggle-all">
           Mark all as complete
         </label>

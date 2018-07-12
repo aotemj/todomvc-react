@@ -1,14 +1,18 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import PubSub from 'pubsub-js';
 import classNames from 'classnames';
 
 class ListItem extends Component {
-  constructor() {
+  constructor(props) {
     super();
-    this.toggleStatus = this.toggleStatus.bind(this)
-    this.delItem = this.delItem.bind(this)
-    this.handleEdit = this.handleEdit.bind(this)
-    this.toggleEditing = this.toggleEditing.bind(this)
+    this.toggleStatus = this.toggleStatus.bind(this);
+    this.delItem = this.delItem.bind(this);
+    this.handleEdit = this.handleEdit.bind(this);
+    this.toggleEditing = this.toggleEditing.bind(this);
+    this.saveAndCloseEdit = this.saveAndCloseEdit.bind(this);
+    this.state = {
+      content: '',
+    };
   }
 
   // 切换收藏
@@ -18,22 +22,36 @@ class ListItem extends Component {
 
   // 删除todos
   delItem() {
-    PubSub.publish('delItem',this.props.index);
+    PubSub.publish('delItem', this.props.index);
   }
 
   // 编辑
-  handleEdit() {
+  handleEdit(e) {
+    console.dir(e.target.value);
+    this.setState({
+      content: e.target.value,
+    });
     // this.refs.editIpt.vlaue=this.props.content
   }
 
   // 切换编辑状态
   toggleEditing() {
     PubSub.publish('toggleEditing', this.props.index);
+    this.setState({
+      content: this.props.content,
+    });
   }
 
-  // 关闭编辑
-  closeEdit() {
-    // console.log('blur');
+  // 保存并关闭
+  saveAndCloseEdit(e) {
+    const obj = {
+      index: this.props.index,
+      content: this.state.content,
+    }
+    //input失去焦点或点击回车键保存
+    if (!e.keyCode || (e.keyCode === 13)) {
+      PubSub.publish('saveAndCloseEdit', obj);
+    }
   }
 
   render() {
@@ -60,11 +78,11 @@ class ListItem extends Component {
           />
         </div>
         <input
-          ref="editIpt"
           className="edit"
-          value={this.props.content}
+          value={this.state.content}
           onChange={this.handleEdit}
-          onBlur={this.closeEdit}
+          onBlur={this.saveAndCloseEdit}
+          onKeyUp={this.saveAndCloseEdit}
         />
       </li>
     );

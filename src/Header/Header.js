@@ -17,7 +17,6 @@ class Header extends Component {
       newIpt: e.target.value,
     });
     // const val = this.refs.newIpt.value;
-
   }
 
   addNewItem(e) {
