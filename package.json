@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "classnames": "^2.2.6",
+    "pubsub-js": "^1.6.0",
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
     "react-scripts": "1.1.4"

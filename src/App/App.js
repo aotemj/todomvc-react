@@ -41,8 +41,8 @@ class App extends Component {
 
   // 切换完成
   toggleStatus(index) {
-    let todoList = this.state.todoList;
-    let completed = todoList[index].completed;
+    const todoList = this.state.todoList;
+    const completed = todoList[index].completed;
     todoList[index].completed = !completed;
     this.setState({
       todoList,
@@ -51,7 +51,7 @@ class App extends Component {
 
   // 删除todo
   delItem(index) {
-    let todoList = this.state.todoList;
+    const todoList = this.state.todoList;
     todoList.splice(index, 1);
     this.setState({
       todoList,
@@ -79,7 +79,7 @@ class App extends Component {
         <section className="todoapp">
           <Header addNewTodo={this.addNewTodo} />
           <Main
-            todoList={this.state.todoList}
+            todoList={ this.state.todoList }
             toggleStatus={this.toggleStatus}
             toggleEditing={this.toggleEditing}
             delItem={this.delItem}
@@ -87,9 +87,9 @@ class App extends Component {
           <footer id="footer" style={{ display: 'block' }}>
             <span id="todo-count">
               <strong>
-														1
-</strong>
-item left
+                  1
+              </strong>
+              item left
             </span>
             <ul id="filters">
               <li>
@@ -98,15 +98,18 @@ item left
                 </a>
               </li>
               <li>
-                <a href="#/active">Active</a>
+                <a href="#/active">
+                    Active
+                </a>
               </li>
               <li>
-                <a href="#/completed">Completed</a>
+                <a href="#/completed">
+                    Completed
+                </a>
               </li>
             </ul>
           </footer>
         </section>
-
         <Footer />
       </div>
     );
