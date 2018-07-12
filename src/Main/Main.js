@@ -1,11 +1,11 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import TodoItem from '../TodoItem/TodoItem';
 
 class Main extends Component {
   render() {
     return (
       <section className="main">
-        <input id="toggle-all" className="toggle-all" type="checkbox" />
+        <input id="toggle-all" className="toggle-all" type="checkbox"/>
         <label htmlFor="toggle-all">
           Mark all as complete
         </label>
@@ -16,20 +16,15 @@ class Main extends Component {
                 <TodoItem
                   content={item.content} key={index} completed={item.completed}
                   editing={item.editing}
-                  toggleStatus={this.props.toggleStatus}
-                  toggleEditing={this.props.toggleEditing}
                   index={index}
-                  delItem={this.props.delItem}
                 />
-              )
+              );
             })
           }
-          </ul>
+        </ul>
       </section>
-    )
+    );
   }
 }
-// Main.propTypes={
-    // editing:React.PropTypes.string
-// }
-export default Main
+
+export default Main;

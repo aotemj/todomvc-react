@@ -1,4 +1,5 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
+import PubSub from 'pubsub-js';
 import './App.css';
 import Header from '../Header/Header';
 import Main from '../Main/Main';
@@ -27,9 +28,24 @@ class App extends Component {
     };
   }
 
+  componentDidMount() {
+    PubSub.subscribe('addNewTodo', (fnName, newTodo) => {
+      this.addNewTodo(newTodo);
+    });
+    PubSub.subscribe('delItem', (fnName, index) => {
+      this.delItem(index);
+    });
+    PubSub.subscribe('toggleStatus', (fnName, index) => {
+      this.toggleStatus(index);
+    });
+    PubSub.subscribe('toggleEditing', (fnName, index) => {
+      this.toggleEditing(index);
+    });
+  }
+
   // 新增todo
   addNewTodo(newTodo) {
-    const { todoList } = this.state.todoList;
+    const todoList = this.state.todoList;
     todoList.push({
       content: newTodo,
       completed: false,
@@ -39,7 +55,7 @@ class App extends Component {
     });
   }
 
-  // 切换完成
+  // 切换是否完成状态
   toggleStatus(index) {
     const todoList = this.state.todoList;
     const completed = todoList[index].completed;
@@ -60,8 +76,8 @@ class App extends Component {
 
   // 切换编辑
   toggleEditing(index) {
-    let todoList = this.state.todoList;
-    let editing = todoList[index].editing;
+    const todoList = this.state.todoList;
+    const editing = todoList[index].editing;
     todoList.forEach((item, index1) => {
       if (index1 !== index) {
         item.editing = false;
@@ -77,14 +93,13 @@ class App extends Component {
     return (
       <div className="App">
         <section className="todoapp">
-          <Header addNewTodo={this.addNewTodo} />
+          <Header/>
           <Main
-            todoList={ this.state.todoList }
+            todoList={this.state.todoList}
             toggleStatus={this.toggleStatus}
             toggleEditing={this.toggleEditing}
-            delItem={this.delItem}
           />
-          <footer id="footer" style={{ display: 'block' }}>
+          <footer id="footer" style={{display: 'block'}}>
             <span id="todo-count">
               <strong>
                   1
@@ -99,18 +114,18 @@ class App extends Component {
               </li>
               <li>
                 <a href="#/active">
-                    Active
+                  Active
                 </a>
               </li>
               <li>
                 <a href="#/completed">
-                    Completed
+                  Completed
                 </a>
               </li>
             </ul>
           </footer>
         </section>
-        <Footer />
+        <Footer/>
       </div>
     );
   }
