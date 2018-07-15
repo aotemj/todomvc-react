@@ -30,6 +30,7 @@ class App extends Component {
       ],
       unCompletedCount: 0, // 已完成数量
       selectedAll: false, // 是否全选
+      isBlock: 'block', // 列表是否有数据
     };
   }
 
@@ -56,6 +57,22 @@ class App extends Component {
     //   console.log(fnName)
     //   this.toggleSelectedAll();
     // });
+  }
+
+  componentDidUpdate() {
+    console.log('update');
+    const todoList = this.state.todoList;
+    console.log(todoList.length);
+    if (todoList.length === 0) {
+      this.setState({
+        isBlock: 'none',
+      });
+    }
+    // else {
+    //   this.setState({
+    //     isBlock: 'none',
+    //   });
+    // }
   }
 
   //统计未完成数量
@@ -167,14 +184,14 @@ class App extends Component {
     return (
       <div className="App">
         <section className="todoapp">
-          <Header/>
+          <Header />
           <Main
             todoList={this.state.todoList}
             toggleStatus={this.toggleStatus}
             toggleEditing={this.toggleEditing}
             toggleSelectAll={this.toggleSelectedAll}
           />
-          <footer id="footer" style={{display: 'block'}}>
+          <footer id="footer" style={{ display: this.state.isBlock }}>
             <span id="todo-count">
               <strong>
                 {this.state.unCompletedCount}
