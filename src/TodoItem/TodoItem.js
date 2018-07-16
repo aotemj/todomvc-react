@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import PubSub from "pubsub-js";
-import classNames from "classnames";
+import classNames from 'classnames';
 
 class ListItem extends Component {
   constructor(props) {

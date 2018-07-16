@@ -1,9 +1,9 @@
-import React, {Component} from 'react';
-import PubSub from 'pubsub-js';
-import './App.css';
-import Header from '../Header/Header';
+import React, { Component } from "react";
+import PubSub from "pubsub-js";
+import "./App.css";
+import Header from "../Header/Header";
 import Main from '../Main/Main';
-import Footer from '../Footer/Footer';
+import Footer from "../Footer/Footer";
 
 class App extends Component {
   constructor() {
@@ -18,38 +18,38 @@ class App extends Component {
     this.state = {
       todoList: [
         {
-          content: '123',
+          content: "123",
           completed: false,
-          editing: false,
+          editing: false
         },
         {
-          content: '45',
+          content: "45",
           completed: false,
-          editing: false,
-        },
+          editing: false
+        }
       ],
       unCompletedCount: 0, // 已完成数量
       selectedAll: false, // 是否全选
-      isBlock: 'block', // 列表是否有数据
+      isBlock: "block" // 列表是否有数据
     };
   }
 
   componentDidMount() {
     this.getUnCompletedCount();
 
-    PubSub.subscribe('addNewTodo', (fnName, newTodo) => {
+    PubSub.subscribe("addNewTodo", (fnName, newTodo) => {
       this.addNewTodo(newTodo);
     });
-    PubSub.subscribe('delItem', (fnName, index) => {
+    PubSub.subscribe("delItem", (fnName, index) => {
       this.delItem(index);
     });
-    PubSub.subscribe('toggleStatus', (fnName, index) => {
+    PubSub.subscribe("toggleStatus", (fnName, index) => {
       this.toggleStatus(index);
     });
-    PubSub.subscribe('toggleEditing', (fnName, index) => {
+    PubSub.subscribe("toggleEditing", (fnName, index) => {
       this.toggleEditing(index);
     });
-    PubSub.subscribe('saveAndCloseEdit', (fnName, obj) => {
+    PubSub.subscribe("saveAndCloseEdit", (fnName, obj) => {
       console.log(obj);
       this.saveAndCloseEdit(obj);
     });
@@ -60,12 +60,12 @@ class App extends Component {
   }
 
   componentDidUpdate() {
-    console.log('update');
+    console.log("update");
     const todoList = this.state.todoList;
     console.log(todoList.length);
     if (todoList.length === 0) {
       this.setState({
-        isBlock: 'none',
+        isBlock: "none"
       });
     }
     // else {
@@ -85,7 +85,7 @@ class App extends Component {
       }
     });
     this.setState({
-      unCompletedCount,
+      unCompletedCount
     });
   }
 
@@ -96,11 +96,11 @@ class App extends Component {
     unCompletedCount++;
     todoList.push({
       content: newTodo,
-      completed: false,
+      completed: false
     });
     this.setState({
       todoList,
-      unCompletedCount,
+      unCompletedCount
     });
   }
 
@@ -115,7 +115,7 @@ class App extends Component {
 
     this.setState({
       todoList,
-      unCompletedCount,
+      unCompletedCount
     });
   }
 
@@ -128,7 +128,7 @@ class App extends Component {
     todoList.splice(index, 1);
     this.setState({
       todoList,
-      unCompletedCount,
+      unCompletedCount
     });
   }
 
@@ -143,7 +143,7 @@ class App extends Component {
     });
     todoList[index].editing = !editing;
     this.setState({
-      todoList,
+      todoList
     });
   }
 
@@ -155,7 +155,7 @@ class App extends Component {
     todoList[INDEX].content = CONTENT;
     todoList[INDEX].editing = false;
     this.setState({
-      todoList,
+      todoList
     });
   }
 
@@ -164,7 +164,6 @@ class App extends Component {
     let todoList = this.state.todoList;
     let selectedAll = this.state.selectedAll;
     if (selectedAll) {
-
       todoList.forEach((item, index) => {
         item.completed = true;
       });
@@ -176,7 +175,7 @@ class App extends Component {
     selectedAll = !selectedAll;
     this.setState({
       todoList,
-      selectedAll,
+      selectedAll
     });
   }
 
@@ -193,9 +192,7 @@ class App extends Component {
           />
           <footer id="footer" style={{ display: this.state.isBlock }}>
             <span id="todo-count">
-              <strong>
-                {this.state.unCompletedCount}
-              </strong>
+              <strong>{this.state.unCompletedCount}</strong>
               item left
             </span>
             <ul id="filters">
@@ -205,19 +202,15 @@ class App extends Component {
                 </a>
               </li>
               <li>
-                <a href="#/active">
-                  Active
-                </a>
+                <a href="#/active">Active</a>
               </li>
               <li>
-                <a href="#/completed">
-                  Completed
-                </a>
+                <a href="#/completed">Completed</a>
               </li>
             </ul>
           </footer>
         </section>
-        <Footer/>
+        <Footer />
       </div>
     );
   }
