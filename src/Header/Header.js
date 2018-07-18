@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import PubSub from 'pubsub-js';
 
 class Header extends Component {
@@ -20,7 +20,7 @@ class Header extends Component {
   }
 
   addNewItem(e) {
-    const keyCode = e.keyCode;
+    const { keyCode } = e;
     const NEW_ITEM = this.state.newIpt.trim();
     // 监控回车键
     if (keyCode === 13 && NEW_ITEM !== '') {

@@ -4,20 +4,21 @@ import classNames from 'classnames';
 
 class ListItem extends Component {
   constructor(props) {
-    super();
+    super(props);
     this.toggleStatus = this.toggleStatus.bind(this);
     this.delItem = this.delItem.bind(this);
     this.handleEdit = this.handleEdit.bind(this);
     this.toggleEditing = this.toggleEditing.bind(this);
     this.saveAndCloseEdit = this.saveAndCloseEdit.bind(this);
     this.state = {
-      content: ""
+      content: '',
     };
   }
 
   // 切换收藏
   toggleStatus() {
-    PubSub.publish("toggleStatus", this.props.index);
+    const { index } = this.props;
+    PubSub.publish('toggleStatus', index);
   }
 
   // 删除todos
